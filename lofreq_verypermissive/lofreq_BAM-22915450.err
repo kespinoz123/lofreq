@@ -1,0 +1,25 @@
+Number of substitution tests performed: 36624
+Number of indel tests performed: 0
+	Command being timed: "lofreq call --no-default-filter -A -B -a 1 -b 1 -f hg38_formatted_nochr_.fasta -l chris_hg38_reformatted.bed -o vcf.gz /projects/bgmp/shared/groups/2022/79K/salish/kespinoz/proj_salish_cfdna/Quality_Filter/Trimmed_Q25/BWA_25/original/test_Q25.sorted.bam"
+	User time (seconds): 11419.49
+	System time (seconds): 51.96
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:11:38
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2626652
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 38357143
+	Voluntary context switches: 390
+	Involuntary context switches: 9225
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
