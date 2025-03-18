@@ -6,9 +6,10 @@
 #SBATCH --cpus-per-task=4               ### Number of cpus (cores) per task
 #SBATCH --partition=bgmp                ### partition to run things
 
+# ----- Activating conda environment to run lofreq  ----- 
 conda activate /projects/bgmp/shared/groups/2022/79K/salish/envs/lofreq
 
-#lofreq call -f ref.fa -o vars.vcf aln.bam
+# ----- lofreq call -f ref.fa -o vars.vcf aln.bam  ----- 
 
 /usr/bin/time -v lofreq call -f ../inputs/hg38_formatted_nochr_.fasta -l ../inputs/chris_hg38_reformatted.bed -o vcf.gz /projects/bgmp/shared/groups/2022/79K/salish/kespinoz/proj_salish_cfdna/Deduping/sorted.deduped_Q25.bam
 
