@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.10
 
 '''
-A program for PCR deduplication. User needs a sorted and paired SAM file prior to using this script 
+A script for PCR deduplication. The user needs a sorted and paired SAM file prior to using this script 
 '''
 
 import argparse
@@ -17,23 +17,23 @@ def get_args():
 
 args=get_args()
 
-##---------- Dictionaries ------------
+## ---------- Dictionaries ------------
 #First store all recods inside a dictionary and then, any repeating records add to a deduplicate_count
 #Format: unique_reads:{(chromosome, adj_pos, flag, umi)}
 unique_reads = {}
 
-##---------- UMI Set ------------
+## ---------- UMI Set ------------
 #Save known UMIs inside of a set to check if UMIS in SAM file match them and if not = discard
 umi_set = set()
 
-##---------- Counters ------------
+## ---------- Counters ------------
 wrong_umis = 0
 header_count = 0
 unique_count = 0
 deduplicates_count = 0
 
-##---------- Opening STL96.txt ------------
-#Opening STL96.txt file and storing each known UMI in umi_set()
+## ---------- Opening STL96.txt ------------
+# Opening STL96.txt file and storing each known UMI in umi_set()
 with open(args.umi, 'r') as known_umis:
     for line in known_umis:
         umi_set.add(line.strip())
@@ -41,7 +41,7 @@ with open(args.umi, 'r') as known_umis:
 
 ##---------- Functions ------------
 
-#>>>>>>>>>> Strand Directionality <<<<<<<<<<
+# ------------ Strand Directionality ------------ 
 def strand_direc(flag:int)->str:
     '''
     This function is used to parse the  SAM bitwise flag 16. It will check if a read is reverse complemented or not.
@@ -54,8 +54,8 @@ def strand_direc(flag:int)->str:
         #bool = False
         return "Forward" 
 
-# >>>>>>>>>> Searching for a CIGAR String <<<<<<<<<<
-#Finding a cigar string pattern and storing each into a set
+# ------------ Searching for a CIGAR String ------------ 
+# Finding a cigar string pattern and storing each into a set
 def cigar_search(cigar:str) -> list[str]:
     ''' 
     This function will search for a CIGAR string in the given SAM file and 
@@ -66,8 +66,8 @@ def cigar_search(cigar:str) -> list[str]:
     return cigar_list
 
 
-#>>>>>>>>>> Adjusting for Correct Position <<<<<<<<<<
-#Format: cigar [str] | start_position of strand [str] | strand direction [str] 
+# ------------ Adjusting for Correct Position ------------ 
+# Format: cigar [str] | start_position of strand [str] | strand direction [str] 
 def adjusted_position(cigar_list:list[str], position:int, strand:str)-> int:  
     '''
     This function uses the CIGAR pattern and adjust for the correct left most bassed start position. 
@@ -108,17 +108,17 @@ def adjusted_position(cigar_list:list[str], position:int, strand:str)-> int:
         elif letter == "S": 
             right_soft_clipped += number
 
-#Forward = False
+# Forward = False
     if strand == "Forward":
         adjusted_position=(int(position) - left_soft_clipped)
 
-#Reverse = True
+# Reverse = True
     elif strand == "Reverse":
         adjusted_position=(int(position) + matches + deletions + splice + right_soft_clipped)
     return adjusted_position
 
 
-#---------- For Loop: Writing unique reads to output file ------------
+# ---------- For Loop: Writing unique reads to output file ------------
 with open(args.file, 'r') as fh, open(args.outfile,'w') as outfile:
     for line in fh:
         if line.startswith("@"):
@@ -150,7 +150,7 @@ with open(args.file, 'r') as fh, open(args.outfile,'w') as outfile:
             else:
                 deduplicates_count+= 1
 
-##---------- Print statements ------------       
+## ---------- Print statements ------------       
 print("Number of Header Lines: ", header_count)
 print("Number of Unique Reads: ", unique_count)
 print("Number of Deduplicates: ", deduplicates_count)
