@@ -53,6 +53,7 @@ Additionally, various parameters were tested to optimize the results, including 
 conda activate /path/to/your/conda/environment/lofreq
 
 /usr/bin/time -v lofreq call --no-default-filter -A -B -a 1 -b 1 -f /path/to/reference/genome.fasta -l /path/to/bed/file.bed -o output.vcf.gz /path/to/input/bamfile.bam
+```
 
 ## Parameters Explained
 
